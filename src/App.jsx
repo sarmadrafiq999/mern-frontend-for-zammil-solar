@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Nvabar/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Services from "./pages/services";
-import Contact from "./pages/contact";
+// import Services from "./pages/Services";
+import Contact from "./pages/Contact";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Footer from "./Footer";
@@ -17,6 +17,7 @@ import { AdminContacts } from "./pages/Admin-contacts";
 import { AdminUsers } from "./pages/Admin-users";
 import { AdminContactUpdate } from "./pages/Admin-updateContact";
 import { AdminUserUpadte } from "./pages/Admin-UpdateUser";
+import Services from "./pages/Services";
 // import { AdminContacts } from "./pages/Admin-contacts";
 export default function App() {
   return (
