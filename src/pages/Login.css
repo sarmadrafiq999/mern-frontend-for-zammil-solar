@@ -1,0 +1,156 @@
+/* Base reset */
+input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Section container */
+.sectionlogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  margin-top: 100px;
+  padding-bottom: 50px; /* Prevent footer collision */
+}
+
+/* Login form container */
+.log-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid gray;
+  width: 40vw;
+  max-width: 450px;
+  height: auto;
+  padding: 30px 20px;
+  border-radius: 9px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+/* Outer login area */
+.container-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid gray;
+  width: 50vw;
+  max-width: 600px;
+  height: auto;
+  padding: 30px 20px;
+  border-radius: 9px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.log-form h1 {
+  color: orangered;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.input-group input {
+  padding: 8px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid rgb(165, 165, 165);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input-group input:hover {
+  border: 1px solid orangered;
+}
+
+.log-cont {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.log-cont h1 {
+  margin-bottom: 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+.log-now {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.log-now span {
+  margin-left: 10px;
+}
+
+/* Medium responsiveness */
+@media (max-width: 1030px) {
+  .log-form {
+    width: 70vw;
+    max-width: 400px;
+    height: auto;
+    padding: 20px;
+  }
+
+  .container-login {
+    width: 80vw;
+    max-width: 550px;
+    height: auto;
+    padding: 20px;
+  }
+
+  .input-group input {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  .input-group label {
+    font-size: 16px;
+  }
+}
+
+/* Small screen responsiveness */
+@media (max-width: 680px) {
+  .log-form {
+    width: 90vw;
+    max-width: none;
+    padding: 15px;
+  }
+
+  .container-login {
+    width: 95vw;
+    max-width: none;
+    padding: 15px;
+  }
+
+  .input-group input {
+    font-size: 14px;
+  }
+
+  .input-group label {
+    font-size: 14px;
+  }
+
+  .log-now {
+    font-size: 16px;
+  }
+}

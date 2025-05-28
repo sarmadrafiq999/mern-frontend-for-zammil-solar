@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #121212, #1e1e1e);
+    animation: fadeInBody 1s ease;
+    color: #ddd;
+  }
+
+  @keyframes fadeInBody {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    animation: slideUp 0.8s ease;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .product-form {
+    background-color: #222; /* Dark background */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 188, 212, 0.25); /* subtle blue glow */
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: popIn 0.5s ease-out;
+    color: #ddd;
+  }
+
+  @keyframes popIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .product-form:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 188, 212, 0.5);
+  }
+
+  .product-form h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #00bcd4; /* Bright accent */
+    animation: fadeInText 1s ease;
+  }
+
+  @keyframes fadeInText {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    animation: fadeInGroup 1s ease;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #80deea; /* light cyan */
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #333;
+    color: #ddd;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #bbb;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #00bcd4;
+    outline: none;
+    background: #222;
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.5);
+    color: #fff;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #00bcd4;
+    color: #121212;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.6);
+  }
+
+  .submit-btn:hover {
+    background-color: #008c9e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 140, 158, 0.8);
+  }
+
+  .image-preview {
+    margin-top: 15px;
+    text-align: center;
+    animation: fadeInImage 0.5s ease;
+  }
+
+  @keyframes fadeInImage {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .image-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.4);
+  }

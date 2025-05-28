@@ -1,0 +1,191 @@
+/* AdminLayout.css */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+}
+
+/* Page Heading */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    animation: slideDown 1s ease-in-out;
+}
+
+/* Main Grid Layout */
+.admin-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    margin: 30px;
+    min-height: 80vh;
+    gap: 20px;
+    animation: fadeIn 0.8s ease-in;
+}
+
+/* Sidebar Styles */
+.admin-sidebar {
+    background: #34495e;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    animation: slideInLeft 0.6s ease;
+}
+
+.admin-sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.admin-sidebar nav ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: padding-left 0.3s, color 0.3s;
+}
+
+.admin-sidebar nav ul li a:hover {
+    padding-left: 12px;
+    color: #1abc9c;
+}
+
+/* Content Area */
+.admin-content {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 1s ease;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 🔻 Responsive styles for max-width: 705px */
+@media (max-width: 705px) {
+    h1 {
+        font-size: 2rem;
+        margin-top: 15px;
+    }
+    .admin-grid {
+        grid-template-columns: 1fr;
+        margin: 20px;
+        gap: 15px;
+    }
+    .admin-sidebar {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    .admin-sidebar nav ul li {
+        margin: 15px 0;
+    }
+    .admin-sidebar nav ul li a {
+        font-size: 1rem;
+    }
+    .admin-content {
+        padding: 20px;
+        border-radius: 10px;
+    }
+}
+
+/* 🔻 Extra Responsive styles for max-width: 422px */
+@media (max-width: 422px) {
+    h1 {
+        font-size: 1.5rem;
+        margin-top: 10px;
+    }
+    .admin-grid {
+        margin: 10px;
+        gap: 10px;
+        /* width: 60px; */
+
+    }
+    .admin-sidebar {
+        padding: 10px;
+    }
+    .admin-sidebar nav ul li {
+        margin: 10px 0;
+    }
+    .admin-sidebar nav ul li a {
+        font-size: 0.95rem;
+    }
+    .admin-content {
+        padding: 15px;
+    }
+}
+
+/* 🔻 Ultra-Small Responsive styles for max-width: 390px */
+@media (max-width: 403px) {
+    h1 {
+        font-size: 1.2rem;
+        margin-top: 6px;
+    }
+    .admin-grid {
+        margin: 5px;
+        gap: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .admin-sidebar {
+        width: 300px;
+
+        padding: 6px;
+        border-radius: 5px;
+    }
+    .admin-sidebar nav ul li {
+        margin: 6px 0;
+    }
+    .admin-sidebar nav ul li a {
+        font-size: 0.8rem;
+        padding-left: 0; /* Disable animation on tiny screens */
+    }
+    .admin-content {
+        padding: 10px;
+        border-radius: 5px;
+    }
+}
+
+/* 🔻 Ultra-Compact Responsive styles for max-width: 250px */
+

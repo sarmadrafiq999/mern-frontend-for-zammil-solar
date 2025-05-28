@@ -1,0 +1,160 @@
+/* Scoped Container */
+.admin-contacts-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #121212;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  color: #ddd;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: admin-contacts-fadeIn 0.7s ease forwards;
+}
+
+/* Title */
+.admin-contacts-container > h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 0 5px #00bcd4;
+  letter-spacing: 1px;
+}
+
+/* Table styling */
+.admin-contacts-container table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+  animation: admin-contacts-slideUp 0.8s ease forwards;
+}
+
+.admin-contacts-container thead tr {
+  background: #272727;
+}
+
+.admin-contacts-container th,
+.admin-contacts-container td {
+  padding: 15px 20px;
+  text-align: left;
+  color: #ccc;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+/* Header row text */
+.admin-contacts-container th {
+  font-weight: 600;
+  color: #80deea;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #00bcd4;
+}
+
+/* Table row styles */
+.admin-contacts-container tbody tr {
+  background: #222;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.admin-contacts-container tbody tr:hover {
+  background: #333;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 188, 212, 0.5);
+}
+
+/* Actions cell flex container */
+.admin-contacts-container td:last-child {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Buttons (Delete) */
+.admin-contacts-container .delete-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff4d4d;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 77, 77, 0.6);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  width: 42px; /* fixed width for equal sizing */
+  height: 42px; /* fixed height for equal sizing */
+}
+
+.admin-contacts-container .delete-btn:hover {
+  background: #e53935;
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(229, 57, 53, 0.8);
+}
+
+/* Edit icon link */
+.admin-contacts-container a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px; /* equal size */
+  height: 42px; /* equal size */
+  background: #0097a7;
+  border-radius: 6px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 151, 167, 0.6);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+.admin-contacts-container a:hover {
+  background: #00838f;
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0, 131, 143, 0.8);
+}
+
+/* Icons inside actions */
+.admin-contacts-container .action-icon {
+  font-size: 1.3rem;
+  pointer-events: none; /* Prevent accidental clicks on icons themselves */
+}
+
+/* Additional styling for icons */
+.admin-contacts-container .action-icon.edit {
+  color: #b2ebf2;
+}
+
+.admin-contacts-container .action-icon.delete {
+  color: #fff;
+}
+
+/* No contacts message */
+.admin-contacts-container > p {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.1rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* Animations */
+@keyframes admin-contacts-fadeIn {
+  from {opacity: 0; transform: translateY(15px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes admin-contacts-slideUp {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}

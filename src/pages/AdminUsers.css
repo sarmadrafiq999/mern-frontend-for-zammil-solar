@@ -1,0 +1,226 @@
+.admin-users-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #121212;
+    color: #eee;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+    animation: fadeInContainer 0.6s ease-in-out forwards;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: auto;
+}
+
+.admin-users-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 0 0 8px #00bcd4;
+    animation: h2FadeIn 1s ease-in-out;
+}
+
+@keyframes h2FadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+        text-shadow: 0 0 0px #00bcd4;
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.02);
+        text-shadow: 0 0 10px #00bcd4;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        text-shadow: 0 0 8px #00bcd4;
+    }
+}
+
+.admin-users-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+.admin-users-table thead tr {
+    background-color: #1f1f1f;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    color: #00acc1;
+}
+
+.admin-users-table thead::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #00bcd4;
+    /* Custom color */
+    width: 100%;
+    position: absolute;
+    left: 0;
+/* top: 0; */
+bottom: 10px;
+    /* bottom: -2px; */
+}
+.admin-users-table thead {
+    position: relative;
+  }
+
+
+.admin-users-table th,
+.admin-users-table td {
+    padding: 14px 18px;
+    text-align: left;
+    color: #dcdcdc;
+    border-bottom: 1px solid #333;
+}
+
+.admin-users-table tbody tr {
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.admin-users-table tbody tr:hover {
+    background-color: #2c2c2c;
+    transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 188, 212, 0.4);
+}
+
+.admin-users-th-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.admin-users-actions-btn-container {
+    display: flex;
+    gap: 12px;
+}
+
+.admin-users-edit-btn,
+.admin-users-delete-btn {
+    width: 90px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    color: #fff;
+}
+
+.admin-users-edit-btn {
+    background-color: #00838f;
+}
+
+.admin-users-edit-btn:hover {
+    background-color: #0097a7;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 151, 167, 0.6);
+}
+
+.admin-users-delete-btn {
+    background-color: #c62828;
+}
+
+.admin-users-delete-btn:hover {
+    background-color: #e53935;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(229, 57, 53, 0.6);
+}
+
+@keyframes fadeInContainer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* responsive models */
+@media (max-width: 1190px) {
+    .admin-users-container {
+        padding: 20px 15px;
+        margin: 20px auto;
+        width: 95%;
+        box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .admin-users-container h2 {
+        font-size: 1.6rem;
+        margin-bottom: 18px;
+    }
+
+    .admin-users-table {
+        width: 100%;
+        overflow-x: auto;
+        border-spacing: 0;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        display: block;
+    }
+
+    .admin-users-table thead {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        background-color: #1f1f1f;
+        color: #00acc1;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .admin-users-table thead::after {
+        display: none;
+    }
+
+    .admin-users-table tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .admin-users-table tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        margin-bottom: 12px;
+    }
+
+    .admin-users-table th,
+    .admin-users-table td {
+        padding: 10px 12px;
+        text-align: left;
+        word-wrap: break-word;
+        border-bottom: 1px solid #333;
+    }
+
+    .admin-users-actions-btn-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .admin-users-edit-btn,
+    .admin-users-delete-btn {
+        width: 100%;
+        font-size: 0.85rem;
+        height: 34px;
+    }
+}

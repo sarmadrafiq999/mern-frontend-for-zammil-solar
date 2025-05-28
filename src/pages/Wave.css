@@ -1,0 +1,30 @@
+.wave-wrapper {
+    position: relative;
+    width: 100%;
+    height: 80px;  /* Thin height for wave */
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .wave-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* Double width for smooth looping */
+    height: 100%;
+    animation: moveWave 8s linear infinite;
+  }
+
+  .wave-path {
+    fill: rgba(255, 255, 255, 0.4); /* Soft white, adjust opacity */
+  }
+
+  /* Animation moves the wave left continuously */
+  @keyframes moveWave {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }

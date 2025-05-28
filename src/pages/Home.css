@@ -1,0 +1,336 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* Background container */
+.bck {
+  position: relative;
+  background-image: url('https://mbsolar.pk/wp-content/uploads/2021/10/mbsolar1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 30px;
+  width: 100%;
+  height: 100vh; /* Full screen height */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  overflow: hidden;
+  transition: padding 0.3s ease, margin-top 0.3s ease;
+}
+
+/* Dark overlay */
+.bck::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* Headings */
+.headings {
+  position: relative;
+  z-index: 1;
+  color: rgb(255, 238, 0);
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 30px;
+}
+
+/* Content container */
+.content {
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+
+/* Tick icon style */
+.tick {
+  margin-left: 4px;
+  border: 2px solid rgb(90, 255, 90);
+  font-size: 16px;
+  border-radius: 50%;
+  color: rgb(90, 255, 90);
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+/* Flex container for tick and text */
+.slashes {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* space between tick and text */
+  /* font-size: 30px; */
+  margin: 20px 0;
+}
+
+/* Content paragraph */
+.content p {
+  margin-top: 10px;
+  width: 400px;
+}
+
+/* Progress bar */
+.bar {
+  margin-top: 30px;
+  width: 150px;
+  border-radius: 50px;
+  height: 20px;
+  background-color: rgb(233, 231, 231);
+}
+
+/* First home image */
+.homeFstImg {
+  margin-top: 30px;
+  width: 70vw;
+  height: 100vh;
+  object-fit: contain;
+  margin-bottom: 30px;
+}
+
+/* Outer content flex container */
+.contentOuter {
+  font-size: 20px;
+  margin-left: 100px;
+  word-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+/* Section with background image */
+.get {
+  background-image: url('https://i0.wp.com/solarvillageproject.org/wp-content/uploads/2021/05/bg12.jpg?fit=1920%2C898&ssl=1');
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Overlay inside .get */
+.get-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 50px;
+  border-radius: 20px;
+  max-width: 1200px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  color: white;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+/* Header styles */
+.home-h1 {
+  color: #fffefa;
+}
+
+/* Animation base class */
+.animate-slide-up {
+  opacity: 0;
+  color: #ffa500;
+  transform: translateY(40px);
+  animation: slideUp 1s ease-out forwards;
+}
+
+/* Delay for second line */
+.animate-slide-up.delay {
+  animation-delay: 0.4s;
+  color: #ffa500;
+}
+
+/* Slide up animation keyframes */
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* General heading 3 style */
+h3 {
+  color: #fffefa;
+}
+
+/* Get section h2 */
+.get h2 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #fffffe !important;
+}
+
+/* Corrected selector: slideDown class */
+.slideDown .get-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Get card styles */
+.get-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 25px;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInCard 1s ease forwards;
+  opacity: 0;
+  margin-bottom: 30px;
+}
+
+.get-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.get-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #00FFEF;
+}
+
+.get-card p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #e0e0e0;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInCard {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive styles for devices 768px and below */
+@media (max-width: 768px) {
+  .get h2 {
+    font-size: 2rem;
+  }
+  .get-card h3 {
+    font-size: 1.3rem;
+    animation: slideFadeIn 0.6s ease-out forwards;
+  }
+  .get-card p {
+    font-size: 1rem;
+  }
+}
+
+/* Responsive styles for devices 680px and below */
+@media (max-width: 680px) {
+  .bck {
+    height: auto;
+    padding: 40px 20px;
+    margin-top: 20px;
+  }
+
+  .headings {
+    font-size: 22px;
+    padding: 15px;
+  }
+
+  .content p {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 15px;
+    padding: 0 10px;
+  }
+
+  .slashes {
+    gap: 10px;
+    font-size: 20px;
+  }
+
+  .bar {
+    width: 100px;
+    height: 16px;
+  }
+
+  .homeFstImg {
+    width: 90vw;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .contentOuter {
+    flex-direction: column;
+    margin-left: 0;
+    font-size: 16px;
+    gap: 20px;
+  }
+
+  .get {
+    padding: 40px 15px;
+  }
+
+  .get-overlay {
+    padding: 30px 20px;
+    max-width: 100%;
+  }
+
+  .get h2 {
+    font-size: 2rem !important;
+    margin-bottom: 30px;
+  }
+
+  .get-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .get-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .get-card p {
+    font-size: 0.95rem;
+  }
+}

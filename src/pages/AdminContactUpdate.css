@@ -1,0 +1,141 @@
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Main Container */
+.admin-contact-update__container {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 40px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #1a1a1d, #2c2c34);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e0e0e0;
+    animation: fadeInSlide 0.8s ease-out;
+    transition: transform 0.3s ease;
+}
+
+.admin-contact-update__container:hover {
+    transform: scale(1.01);
+}
+
+/* Title */
+.admin-contact-update__title {
+    text-align: center;
+    font-size: 32px;
+    color: #00ffd5;
+    margin-bottom: 35px;
+    font-weight: bold;
+    animation: fadeInSlide 1s ease-out;
+    text-shadow: 0 0 10px #00ffd5;
+}
+
+/* Form Structure */
+.admin-contact-update__form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Field Group */
+.admin-contact-update__field {
+    display: flex;
+    flex-direction: column;
+    animation: fadeInSlide 1.2s ease;
+}
+
+.admin-contact-update__field label {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #b0b0b0;
+    transition: color 0.3s ease;
+}
+
+.admin-contact-update__field label:hover {
+    color: #00ffd5;
+    text-shadow: 0 0 5px #00ffd5;
+}
+
+/* Input + Textarea Styling */
+.admin-contact-update__field input,
+.admin-contact-update__field textarea {
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #1f1f1f;
+    color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 6px rgba(0, 255, 213, 0.05);
+}
+
+.admin-contact-update__field input:hover,
+.admin-contact-update__field textarea:hover {
+    background-color: #2b2b2b;
+    border-color: #00ffd5;
+    box-shadow: 0 0 6px rgba(0, 255, 213, 0.3);
+}
+
+.admin-contact-update__field input:focus,
+.admin-contact-update__field textarea:focus {
+    outline: none;
+    border-color: #00ffd5;
+    box-shadow: 0 0 12px rgba(0, 255, 213, 0.5);
+    background-color: #2e2e2e;
+}
+
+/* Button Container */
+.admin-contact-update__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+/* Common Button Styles */
+.admin-contact-update__edit-btn,
+.admin-contact-update__submit-btn {
+    padding: 14px 26px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Edit Button Style */
+.admin-contact-update__edit-btn {
+    background-color: #444;
+    color: #fff;
+}
+
+.admin-contact-update__edit-btn:hover {
+    background-color: #555;
+    color: #00ffd5;
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(0, 255, 213, 0.4);
+}
+
+/* Submit Button Style */
+.admin-contact-update__submit-btn {
+    background-color: #00ffd5;
+    color: #000;
+}
+
+.admin-contact-update__submit-btn:hover {
+    background-color: #00c0aa;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 213, 0.6);
+}
