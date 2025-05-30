@@ -5,6 +5,18 @@ input {
   justify-content: center;
   margin-bottom: 10px;
 }
+/* Highlighted register link */
+.login-link {
+  color: #00c3ff;
+  font-weight:600;
+  text-decoration: underline;
+  margin-left: 5px;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #fff;
+}
 
 /* Section container */
 .sectionlogin {

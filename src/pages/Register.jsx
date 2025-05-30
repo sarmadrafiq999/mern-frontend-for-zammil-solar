@@ -129,7 +129,9 @@ export default function Register() {
             <div className="Already">
               Already have an account?
               <span>
-                <NavLink to="/login">Login here</NavLink>
+                <NavLink to="/login" className="login-link">
+                  Login here
+                </NavLink>
               </span>
             </div>
           </form>
