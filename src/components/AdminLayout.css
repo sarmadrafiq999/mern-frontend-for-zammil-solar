@@ -1,4 +1,7 @@
 /* AdminLayout.css */
+html, body {
+    background-color: white !important;
+  }
 
 body {
     margin: 0;

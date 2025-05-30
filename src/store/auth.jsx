@@ -32,12 +32,15 @@ export const AuthProvider = ({ children }) => {
   const userAuthantication = async () => {
     try {
       setisLoading(true);
-      const response = await fetch("http://localhost:3000/api/auth/user", {
-        method: "GET",
-        headers: {
-          Authorization: authorization,
-        },
-      });
+      const response = await fetch(
+        "https://zammil-backend-production.up.railway.app/api/auth/user",
+        {
+          method: "GET",
+          headers: {
+            Authorization: authorization,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         console.log(data.user);

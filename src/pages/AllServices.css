@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #121212; /* Dark background */
+  /* background-color: #121212; Dark background */
   color: #ddd; /* Light text */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
