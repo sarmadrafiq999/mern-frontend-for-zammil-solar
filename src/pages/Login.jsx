@@ -109,7 +109,7 @@ export default function Login() {
                 <div className="log-now">
                   Don't have an account?{" "}
                   <span>
-                    <NavLink to="/register" className={"login-link"}>
+                    <NavLink to="/register" className="login-link">
                       Register here
                     </NavLink>
                   </span>
