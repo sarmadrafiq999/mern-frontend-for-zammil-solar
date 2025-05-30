@@ -8,7 +8,7 @@ export default function Contact() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [contactData, setContactData] = useState({
+  const [formData, setFormData] = useState({
     username: "",
     email: "",
     message: "",
@@ -16,7 +16,7 @@ export default function Contact() {
 
   useEffect(() => {
     if (user) {
-      setContactData({
+      setFormData({
         username: user.username || "",
         email: user.email || "",
         message: "",
@@ -24,35 +24,43 @@ export default function Contact() {
     }
   }, [user]);
 
-  const handleInput = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setContactData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch(
-        "https://zammil-backend-production.up.railway.app/api/auth/contact-us",
+        "https://zammil-backend-production.up.railway.app/api/contact",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(contactData),
+          body: JSON.stringify(formData),
         }
       );
 
       const data = await response.json();
+
       if (response.ok) {
         toast.success("Message sent successfully!");
-        setContactData({ username: "", email: "", message: "" });
+        setFormData({ username: "", email: "", message: "" });
         navigate("/");
       } else {
-        toast.error(data.extraDetails ? data.extraDetails : data.message);
+        toast.error(
+          data.extraDetails || data.message || "Something went wrong."
+        );
       }
     } catch (error) {
-      toast.error("Failed to send message. Try again later.");
+      toast.error("Failed to send message. Please try again later.");
+      console.error("Contact form error:", error);
     }
   };
 
@@ -67,8 +75,8 @@ export default function Contact() {
             type="text"
             name="username"
             placeholder="Your Name"
-            value={contactData.username}
-            onChange={handleInput}
+            value={formData.username}
+            onChange={handleInputChange}
             required
           />
 
@@ -77,8 +85,8 @@ export default function Contact() {
             type="email"
             name="email"
             placeholder="Your Email"
-            value={contactData.email}
-            onChange={handleInput}
+            value={formData.email}
+            onChange={handleInputChange}
             required
           />
 
@@ -86,8 +94,8 @@ export default function Contact() {
             className="contact-form-textarea"
             name="message"
             placeholder="Your Message"
-            value={contactData.message}
-            onChange={handleInput}
+            value={formData.message}
+            onChange={handleInputChange}
             required
           ></textarea>
 

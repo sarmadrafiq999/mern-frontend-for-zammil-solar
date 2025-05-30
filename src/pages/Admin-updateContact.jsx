@@ -2,24 +2,24 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth";
 import { useParams } from "react-router-dom";
-import "./AdminContactUpdate.css"; // ✅ Import unique CSS
+import "./AdminContactUpdate.css";
 
 export const AdminContactUpdate = () => {
   const [isEditing, setIsEditing] = useState(false);
 
-  const [user, setData] = useState({
+  const [user, setUser] = useState({
     username: "",
     email: "",
     message: "",
   });
 
-  const params = useParams();
   const { authorization } = useAuth();
+  const { id } = useParams();
 
   const getSingleContactData = async () => {
     try {
       const response = await fetch(
-        `https://zammil-backend-production.up.railway.app/api/admin/contacts/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/contacts/${id}`,
         {
           method: "GET",
           headers: {
@@ -29,18 +29,14 @@ export const AdminContactUpdate = () => {
       );
 
       const result = await response.json();
-      const data = result.data;
 
-      if (!data) {
+      if (!result.data) {
         toast.error("Contact not found");
         return;
       }
 
-      setData({
-        username: data.username || "",
-        email: data.email || "",
-        message: data.message || "",
-      });
+      const { username, email, message } = result.data;
+      setUser({ username, email, message });
     } catch (error) {
       toast.error(`Error: ${error.message}`);
     }
@@ -52,10 +48,10 @@ export const AdminContactUpdate = () => {
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setData({
-      ...user,
+    setUser((prevUser) => ({
+      ...prevUser,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -63,7 +59,7 @@ export const AdminContactUpdate = () => {
 
     try {
       const response = await fetch(
-        `https://zammil-backend-production.up.railway.app/api/admin/contacts/update/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/contacts/update/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -77,11 +73,6 @@ export const AdminContactUpdate = () => {
       if (response.ok) {
         toast.success("Contact updated successfully");
         setIsEditing(false);
-        setData({
-          username: "",
-          email: "",
-          message: "",
-        });
       } else {
         toast.error("Failed to update contact");
       }
@@ -103,7 +94,6 @@ export const AdminContactUpdate = () => {
             name="username"
             id="username"
             placeholder="Enter username"
-            autoComplete="off"
             value={user.username}
             onChange={handleInput}
             disabled={!isEditing}
@@ -118,7 +108,6 @@ export const AdminContactUpdate = () => {
             name="email"
             id="email"
             placeholder="Enter email"
-            autoComplete="off"
             value={user.email}
             onChange={handleInput}
             disabled={!isEditing}
@@ -132,7 +121,6 @@ export const AdminContactUpdate = () => {
             name="message"
             id="message"
             placeholder="Enter message"
-            autoComplete="off"
             rows="5"
             value={user.message}
             onChange={handleInput}
@@ -144,7 +132,7 @@ export const AdminContactUpdate = () => {
         <div className="admin-contact-update__buttons">
           <button
             type="button"
-            onClick={() => setIsEditing(!isEditing)}
+            onClick={() => setIsEditing((prev) => !prev)}
             className="admin-contact-update__edit-btn"
           >
             {isEditing ? "Cancel" : "Edit"}

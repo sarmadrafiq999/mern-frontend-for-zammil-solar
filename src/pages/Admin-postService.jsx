@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "./ProductForm.css";
+import { toast } from "react-toastify";
 import { useAuth } from "../store/auth";
+import "./ProductForm.css";
 
 const ProductForm = () => {
   const [formData, setFormData] = useState({
@@ -10,18 +11,20 @@ const ProductForm = () => {
     price: "",
     img: "",
   });
+  const [loading, setLoading] = useState(false);
   const { authorization } = useAuth();
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    // You can now send formData to your backend using fetch or axios
+    setLoading(true);
+
     try {
       const response = await fetch(
         "https://zammil-backend-production.up.railway.app/api/admin/adminservices",
@@ -34,18 +37,26 @@ const ProductForm = () => {
           body: JSON.stringify(formData),
         }
       );
+
       const result = await response.json();
 
       if (response.ok) {
-        console.log("Success:", result);
-        alert("Service submitted successfully!");
+        toast.success("Service submitted successfully!");
+        setFormData({
+          title: "",
+          description: "",
+          category: "",
+          price: "",
+          img: "",
+        });
       } else {
-        console.error("Server error:", result);
-        alert("Failed to submit service.");
+        toast.error(result.message || "Failed to submit service.");
       }
     } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong.");
+      toast.error("Something went wrong. Please try again.");
+      console.error("Submit error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,12 +135,12 @@ const ProductForm = () => {
                 e.target.src =
                   "https://via.placeholder.com/150?text=Image+Not+Found";
               }}
-            />{" "}
+            />
           </div>
         )}
 
-        <button type="submit" className="submit-btn">
-          Submit
+        <button type="submit" className="submit-btn" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>

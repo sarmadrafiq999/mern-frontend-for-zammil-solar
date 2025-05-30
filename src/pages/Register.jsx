@@ -3,10 +3,12 @@ import "./Register.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth";
+
 export default function Register() {
   const { storeTokenLS } = useAuth();
   const navigate = useNavigate();
-  const [User, setuser] = useState({
+
+  const [user, setUser] = useState({
     username: "",
     email: "",
     phone: "",
@@ -14,14 +16,13 @@ export default function Register() {
   });
 
   const handleInput = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    setuser({
-      ...User,
+    const { name, value } = e.target;
+    setUser((prevUser) => ({
+      ...prevUser,
       [name]: value,
-    });
+    }));
   };
-  // handleSubmit
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -32,14 +33,15 @@ export default function Register() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(User),
+          body: JSON.stringify(user),
         }
       );
+
       const data = await response.json();
-      const storingToken = data.token;
+
       if (response.ok) {
-        storeTokenLS(storingToken);
-        setuser({
+        storeTokenLS(data.token);
+        setUser({
           username: "",
           email: "",
           phone: "",
@@ -48,13 +50,14 @@ export default function Register() {
         navigate("/");
         toast.success("Registered successfully");
       } else {
-        toast.error(data.extraDetails ? data.extraDetails : data.message);
+        toast.error(data.extraDetails || data.message || "Registration failed");
       }
-      console.log(response);
     } catch (error) {
-      alert("Could not fetch reg api");
+      toast.error("Something went wrong! Please try again later.");
+      console.error("Registration Error:", error);
     }
   };
+
   return (
     <div className="sectionRegister">
       <div className="container">
@@ -71,63 +74,64 @@ export default function Register() {
               <input
                 type="text"
                 name="username"
-                // value={s}
                 placeholder="Enter Username"
                 id="username"
                 required
                 autoComplete="off"
-                value={User.username}
+                value={user.username}
                 onChange={handleInput}
               />
             </div>
+
             <div className="input-group">
               <label htmlFor="phone">Phone</label>
               <input
                 type="number"
                 name="phone"
-                // value={s}
-                placeholder="Enter phone"
+                placeholder="Enter Phone Number"
                 id="phone"
                 required
                 autoComplete="off"
-                value={User.phone}
+                value={user.phone}
                 onChange={handleInput}
               />
             </div>
+
             <div className="input-group">
               <label htmlFor="email">E-mail</label>
               <input
                 type="email"
                 name="email"
-                // value={s}
                 placeholder="example@gmail.com"
                 id="email"
                 required
                 autoComplete="off"
-                value={User.email}
+                value={user.email}
                 onChange={handleInput}
               />
             </div>
+
             <div className="input-group">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
                 name="password"
-                // value={s}
                 placeholder="Enter your password"
                 id="password"
                 required
                 autoComplete="off"
-                value={User.password}
+                value={user.password}
                 onChange={handleInput}
               />
             </div>
+
             <br />
             <button className="reg-btn" type="submit">
               Register Now
             </button>
+
             <div className="Already">
-              Already have an account?
+              Already have an account?{" "}
               <span>
                 <NavLink to="/login" className="login-link">
                   Login here

@@ -16,7 +16,7 @@ import NotFound from "./pages/NotFound";
 import { AdminContacts } from "./pages/Admin-contacts";
 import { AdminUsers } from "./pages/Admin-users";
 import { AdminContactUpdate } from "./pages/Admin-updateContact";
-import { AdminUserUpadte } from "./pages/Admin-UpdateUser";
+import { AdminUserUpdate }  from "./pages/Admin-UpdateUser";
 import Services from "./pages/Services";
 // import { AdminContacts } from "./pages/Admin-contacts";
 export default function App() {
@@ -35,7 +35,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="users" element={<AdminUsers />} />
-            <Route path="users/:id/edit" element={<AdminUserUpadte />} />
+            <Route path="users/:id/edit" element={<AdminUserUpdate />} />
             <Route path="contacts/:id/edit" element={<AdminContactUpdate />} />
 
             <Route path="contacts" element={<AdminContacts />} />

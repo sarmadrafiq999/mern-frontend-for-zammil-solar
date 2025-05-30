@@ -1,99 +1,114 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 export const AdminServiceUpdate = () => {
   const navigate = useNavigate();
-  const [getService, setgetService] = useState({
+  const { id } = useParams();
+  const { authorization } = useAuth();
+
+  const [service, setService] = useState({
     title: "",
     description: "",
     category: "",
     price: "",
     img: "",
   });
-  const params = useParams();
-  const { authorization } = useAuth();
-  const fetchServices = async () => {
+
+  // Fetch single service data by ID
+  const fetchService = async () => {
     try {
       const response = await fetch(
-        `https://zammil-backend-production.up.railway.app/api/admin/getadminservices/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/getadminservices/${id}`,
         {
           method: "GET",
-          headers: {
-            Authorization: authorization,
-          },
+          headers: { Authorization: authorization },
         }
       );
 
+      if (!response.ok) {
+        toast.error("Failed to fetch service data");
+        return;
+      }
+
       const data = await response.json();
-      console.log("Admin  update Services", data);
-      setgetService({
-        title: data.title || "",
-        description: data.description || "",
-        category: data.category || "",
-        price: data.price || "",
-        img: data.img || "",
+
+      if (!data) {
+        toast.error("Service data not found");
+        return;
+      }
+
+      // Defensive: data might be wrapped inside .data property
+      const serviceData = data.data || data;
+
+      setService({
+        title: serviceData.title || "",
+        description: serviceData.description || "",
+        category: serviceData.category || "",
+        price: serviceData.price || "",
+        img: serviceData.img || "",
       });
     } catch (error) {
-      console.log("Error from the admin update services:", error);
+      toast.error("Error fetching service data");
+      console.error("Fetch service error:", error);
     }
   };
-  //   Handle Submitt function
+
+  // Handle form field changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setService((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submit (update service)
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch(
-        `https://zammil-backend-production.up.railway.app/api/admin/getadminservices/update/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/getadminservices/update/${id}`,
         {
           method: "PATCH",
           headers: {
             Authorization: authorization,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(getService),
+          body: JSON.stringify(service),
         }
       );
+
       if (response.ok) {
-        setgetService({
-          title: "",
-          description: "",
-          category: "",
-          price: "",
-          img: "",
-        });
-        toast.success("updated successfully");
+        toast.success("Updated successfully");
         navigate("/admin/allServices");
       } else {
-        toast.error("not updated");
+        toast.error("Update failed");
       }
     } catch (error) {
-      toast.error("can not fetch data from the service API");
+      toast.error("Error updating service");
+      console.error("Update error:", error);
     }
   };
-  //   handleChange
-  const handleChange = (e) => {
-    setgetService({
-      ...getService,
-      [e.target.name]: e.target.value,
-    });
-  };
+
   useEffect(() => {
-    fetchServices();
+    fetchService();
   }, []);
 
   return (
     <div className="form-wrapper">
       <form className="product-form" onSubmit={handleSubmit}>
-        <h2>Add Product</h2>
+        <h2>Update Product</h2>
 
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input
             type="text"
             name="title"
-            value={getService.title}
+            id="title"
+            value={service.title}
             onChange={handleChange}
             placeholder="Enter product title"
             required
@@ -104,12 +119,13 @@ export const AdminServiceUpdate = () => {
           <label htmlFor="description">Description</label>
           <textarea
             name="description"
-            value={getService.description}
+            id="description"
+            value={service.description}
             onChange={handleChange}
             placeholder="Enter product description"
             rows="4"
             required
-          ></textarea>
+          />
         </div>
 
         <div className="form-group">
@@ -117,7 +133,8 @@ export const AdminServiceUpdate = () => {
           <input
             type="text"
             name="category"
-            value={getService.category}
+            id="category"
+            value={service.category}
             onChange={handleChange}
             placeholder="Enter category"
             required
@@ -129,7 +146,8 @@ export const AdminServiceUpdate = () => {
           <input
             type="text"
             name="price"
-            value={getService.price}
+            id="price"
+            value={service.price}
             onChange={handleChange}
             placeholder="Enter price"
             required
@@ -137,33 +155,34 @@ export const AdminServiceUpdate = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="imageUrl">Image URL</label>
+          <label htmlFor="img">Image URL</label>
           <input
             type="text"
             name="img"
-            value={getService.img}
+            id="img"
+            value={service.img}
             onChange={handleChange}
             placeholder="Paste image URL here"
           />
         </div>
 
-        {getService.img && (
+        {service.img && (
           <div className="image-preview">
             <p>Image Preview:</p>
             <img
-              src={getService.img.trim()}
+              src={service.img.trim()}
               alt="Product Preview"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src =
                   "https://via.placeholder.com/150?text=Image+Not+Found";
               }}
-            />{" "}
+            />
           </div>
         )}
 
         <button type="submit" className="submit-btn">
-          Submit
+          Update Service
         </button>
       </form>
     </div>

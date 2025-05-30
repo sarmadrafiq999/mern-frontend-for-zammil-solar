@@ -5,25 +5,22 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 
 export default function Login() {
-  const [loginuser, setloginuser] = useState({
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
   const navigate = useNavigate();
-
-  // Now we include `userAuthantication` from the AuthContext
   const { storeTokenLS, userAuthantication } = useAuth();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setloginuser({
-      ...loginuser,
+    setUser((prevUser) => ({
+      ...prevUser,
       [name]: value,
-    });
+    }));
   };
 
-  // handleSubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,32 +32,29 @@ export default function Login() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(loginuser),
+          body: JSON.stringify(user),
         }
       );
 
       const data = await response.json();
-      const tokentobeStored = data.token;
 
       if (response.ok) {
-        // Store token in localStorage and context state
-        storeTokenLS(tokentobeStored);
-
-        // ✅ Fetch user data right after login
+        storeTokenLS(data.token);
         await userAuthantication();
 
-        setloginuser({
+        setUser({
           email: "",
           password: "",
         });
 
-        toast.success("Login successfully");
+        toast.success("Login successful");
         navigate("/");
       } else {
-        toast.error(data.extraDetails ? data.extraDetails : data.message);
+        toast.error(data.extraDetails || data.message || "Invalid credentials");
       }
     } catch (error) {
-      toast.error("Login failed. Please try again.");
+      toast.error("Login failed. Please check your connection.");
+      console.error("Login error:", error);
     }
   };
 
@@ -73,7 +67,7 @@ export default function Login() {
               <div className="log-form">
                 <div className="log-cont">
                   <h1>Login now</h1>
-                  <p>Fill in the details to login your account.</p>
+                  <p>Fill in the details to login to your account.</p>
                 </div>
                 <form className="login-form" onSubmit={handleSubmit}>
                   <div className="input-group">
@@ -85,7 +79,7 @@ export default function Login() {
                       id="email"
                       required
                       autoComplete="off"
-                      value={loginuser.email}
+                      value={user.email}
                       onChange={handleInput}
                     />
                   </div>
@@ -98,7 +92,7 @@ export default function Login() {
                       id="password"
                       required
                       autoComplete="off"
-                      value={loginuser.password}
+                      value={user.password}
                       onChange={handleInput}
                     />
                   </div>

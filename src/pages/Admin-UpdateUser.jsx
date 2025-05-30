@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
 import "./AdminUserUpdate.css";
 
-export const AdminUserUpadte = () => {
-  const [user, setuserData] = useState({
+export const AdminUserUpdate = () => {
+  const [user, setUserData] = useState({
     username: "",
     phone: "",
     email: "",
-    password: "",
   });
+
   const params = useParams();
+  const navigate = useNavigate();
   const { authorization } = useAuth();
 
-  // Getting singal user data
-  const getSingleUserdata = async () => {
+  // Fetch single user data
+  const getSingleUserData = async () => {
     try {
       const response = await fetch(
         `https://zammil-backend-production.up.railway.app/api/admin/users/${params.id}`,
@@ -26,29 +27,32 @@ export const AdminUserUpadte = () => {
           },
         }
       );
+
       const result = await response.json();
       const data = result.data;
-      console.log("this is the user to update ", result);
-      setuserData({
+
+      setUserData({
         username: data.username || "",
         phone: data.phone || "",
         email: data.email || "",
-        password: "",
       });
     } catch (error) {
-      toast.error("error in getting singal user data");
+      toast.error("Error fetching user data.");
     }
   };
+
   useEffect(() => {
-    getSingleUserdata();
+    getSingleUserData();
   }, []);
+
   const handleInput = (e) => {
-    setuserData({
+    setUserData({
       ...user,
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmitt = async (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
@@ -62,57 +66,63 @@ export const AdminUserUpadte = () => {
           body: JSON.stringify(user),
         }
       );
+
       if (response.ok) {
-        toast.success("updated successfully");
+        toast.success("User updated successfully.");
+        navigate("/admin/users"); // Redirect back to user list
       } else {
-        toast.error("not updated");
+        const data = await response.json();
+        toast.error(data.message || "Failed to update user.");
       }
     } catch (error) {
-      toast.error("Could not fetch user data");
+      toast.error("Error updating user. Please try again.");
     }
   };
+
   return (
-    <>
-      <div className="admin-update-container">
-        <h2 className="admin-update-heading">Update User Info</h2>
-        <form className="admin-update-form" onSubmit={handleSubmitt}>
-          <label className="admin-update-label">
-            Username
-            <input
-              type="text"
-              name="username"
-              className="admin-update-input"
-              value={user.username}
-              onChange={handleInput}
-            />
-          </label>
+    <div className="admin-update-container">
+      <h2 className="admin-update-heading">Update User Info</h2>
+      <form className="admin-update-form" onSubmit={handleSubmit}>
+        <label className="admin-update-label">
+          Username
+          <input
+            type="text"
+            name="username"
+            className="admin-update-input"
+            value={user.username}
+            onChange={handleInput}
+            required
+          />
+        </label>
 
-          <label className="admin-update-label">
-            Phone
-            <input
-              type="text"
-              name="phone"
-              className="admin-update-input"
-              value={user.phone}
-              onChange={handleInput}
-            />
-          </label>
+        <label className="admin-update-label">
+          Phone
+          <input
+            type="text"
+            name="phone"
+            className="admin-update-input"
+            value={user.phone}
+            onChange={handleInput}
+            required
+          />
+        </label>
 
-          <label className="admin-update-label">
-            Email
-            <input
-              type="email"
-              name="email"
-              className="admin-update-input"
-              value={user.email}
-              onChange={handleInput}
-            />
-          </label>
-          <button type="submit" className="admin-update-button">
-            Update User
-          </button>
-        </form>
-      </div>
-    </>
+        <label className="admin-update-label">
+          Email
+          <input
+            type="email"
+            name="email"
+            className="admin-update-input"
+            value={user.email}
+            onChange={handleInput}
+            required
+          />
+        </label>
+
+        <button type="submit" className="admin-update-button">
+          Update User
+        </button>
+      </form>
+    </div>
   );
 };
