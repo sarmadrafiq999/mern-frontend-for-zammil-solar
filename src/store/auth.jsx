@@ -1,64 +1,75 @@
 // Context api
 import { createContext, useContext, useEffect, useState } from "react";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoading, setisLoading] = useState(true);
-  const [user, setUser] = useState("");
-  const [token, settoken] = useState(localStorage.getItem("token"));
-  const authorization = `Bearer ${token}`;
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
-  //---------------------****--------
-  // !Storing token to localStorage
-  //---------------------****--------
-  const storeTokenLS = (tokenSrever) => {
-    settoken(tokenSrever);
-    return localStorage.setItem("token", tokenSrever);
+  // Store token in localStorage
+  const storeTokenLS = (tokenServer) => {
+    setToken(tokenServer);
+    localStorage.setItem("token", tokenServer);
   };
-  //---------------------****--------
-  // !Logout Functionality
-  //---------------------****--------
+
+  // Logout Functionality
   const logoutUser = () => {
-    settoken("");
-    setUser("");
-    return localStorage.removeItem("token");
+    setToken("");
+    setUser(null);
+    localStorage.removeItem("token");
   };
-  //---------------------****--------
-  //! isLoggedIn Functionality
-  const isLoggedIn = !!token;
-  console.log("loggedin Token ", isLoggedIn);
 
-  //---------------------****--------
-  const userAuthantication = async () => {
+  // isLoggedIn
+  const isLoggedIn = !!token;
+  console.log("Logged in:", isLoggedIn);
+
+  // Get current user data using JWT
+  const userAuthentication = async () => {
     try {
       setisLoading(true);
+      const currentToken = localStorage.getItem("token");
+
+      if (!currentToken) {
+        logoutUser();
+        return;
+      }
+
       const response = await fetch(
         "https://zammil-backend-production.up.railway.app/api/auth/user",
         {
           method: "GET",
           headers: {
-            Authorization: authorization,
+            Authorization: `Bearer ${currentToken}`,
           },
         }
       );
+
       if (response.ok) {
         const data = await response.json();
-        console.log(data.user);
+        console.log("User fetched:", data.user);
         setUser(data.user);
-        setisLoading(false);
       } else {
-        console.log("Error fetching user Data");
-        setisLoading(false);
+        if (response.status === 401 || response.status === 403) {
+          logoutUser();
+        }
+        console.log("Error fetching user data:", response.status);
       }
     } catch (error) {
-      console.log("Error fetching user Data");
+      console.error("Authentication error:", error);
+      logoutUser();
+    } finally {
+      setisLoading(false);
     }
   };
 
-  // JWT Authantication To get the data of the current user
+  // Run authentication when token changes
   useEffect(() => {
-    userAuthantication();
-  }, []);
+    if (token) {
+      userAuthentication();
+    }
+  }, [token]);
 
   return (
     <AuthContext.Provider
@@ -67,9 +78,8 @@ export const AuthProvider = ({ children }) => {
         logoutUser,
         user,
         isLoggedIn,
-        authorization,
         isLoading,
-        userAuthantication,
+        userAuthentication,
       }}
     >
       {children}
@@ -77,12 +87,11 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// transfering token
-
+// Custom hook
 export const useAuth = () => {
-  const auhtToken = useContext(AuthContext);
-  if (!auhtToken) {
-    throw new Error("Auth child is not used perfectly");
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return auhtToken;
+  return context;
 };
