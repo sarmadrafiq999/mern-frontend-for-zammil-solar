@@ -17,12 +17,15 @@ export const AdminUsers = () => {
 
   const getAllusers = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/admin/users", {
-        method: "GET",
-        headers: {
-          Authorization: authorization,
-        },
-      });
+      const response = await fetch(
+        "https://zammil-backend-production.up.railway.app/api/admin/users",
+        {
+          method: "GET",
+          headers: {
+            Authorization: authorization,
+          },
+        }
+      );
       const data = await response.json();
       setUser(data);
     } catch (error) {
@@ -33,7 +36,7 @@ export const AdminUsers = () => {
   const GetId = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/users/delete/${id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/users/delete/${id}`,
         {
           method: "DELETE",
           headers: {

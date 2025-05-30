@@ -5,7 +5,7 @@ const Services = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.110.14:3000/api/service")
+    fetch("https://zammil-backend-production.up.railway.app/api/service")
       .then((res) => res.json())
       .then((data) => setServices(data.response))
       .catch((err) => console.error("Error:", err));

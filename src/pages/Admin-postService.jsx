@@ -24,7 +24,7 @@ const ProductForm = () => {
     // You can now send formData to your backend using fetch or axios
     try {
       const response = await fetch(
-        "http://localhost:3000/api/admin/adminservices",
+        "https://zammil-backend-production.up.railway.app/api/admin/adminservices",
         {
           method: "POST",
           headers: {

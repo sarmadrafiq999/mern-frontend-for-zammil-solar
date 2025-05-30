@@ -18,7 +18,7 @@ export const AdminUserUpadte = () => {
   const getSingleUserdata = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/users/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/users/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -52,7 +52,7 @@ export const AdminUserUpadte = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/users/update/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/users/update/${params.id}`,
         {
           method: "PATCH",
           headers: {

@@ -18,7 +18,7 @@ export const AdminServiceUpdate = () => {
   const fetchServices = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/getadminservices/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/getadminservices/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ export const AdminServiceUpdate = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/getadminservices/update/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/getadminservices/update/${params.id}`,
         {
           method: "PATCH",
           headers: {

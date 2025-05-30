@@ -19,7 +19,7 @@ export const AdminContactUpdate = () => {
   const getSingleContactData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/contacts/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/contacts/${params.id}`,
         {
           method: "GET",
           headers: {
@@ -63,7 +63,7 @@ export const AdminContactUpdate = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/contacts/update/${params.id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/contacts/update/${params.id}`,
         {
           method: "PATCH",
           headers: {
@@ -92,72 +92,71 @@ export const AdminContactUpdate = () => {
 
   return (
     <div className="admin-contact-update__container">
-    <h1 className="admin-contact-update__title">
-      Update Contact Information
-    </h1>
-    <form className="admin-contact-update__form" onSubmit={handleSubmit}>
-      <div className="admin-contact-update__field">
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Enter username"
-          autoComplete="off"
-          value={user.username}
-          onChange={handleInput}
-          disabled={!isEditing}
-          required
-        />
-      </div>
+      <h1 className="admin-contact-update__title">
+        Update Contact Information
+      </h1>
+      <form className="admin-contact-update__form" onSubmit={handleSubmit}>
+        <div className="admin-contact-update__field">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Enter username"
+            autoComplete="off"
+            value={user.username}
+            onChange={handleInput}
+            disabled={!isEditing}
+            required
+          />
+        </div>
 
-      <div className="admin-contact-update__field">
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Enter email"
-          autoComplete="off"
-          value={user.email}
-          onChange={handleInput}
-          disabled={!isEditing}
-          required
-        />
-      </div>
+        <div className="admin-contact-update__field">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter email"
+            autoComplete="off"
+            value={user.email}
+            onChange={handleInput}
+            disabled={!isEditing}
+            required
+          />
+        </div>
 
-      <div className="admin-contact-update__field">
-        <label htmlFor="message">Message</label>
-        <textarea
-          name="message"
-          id="message"
-          placeholder="Enter message"
-          autoComplete="off"
-          rows="5"
-          value={user.message}
-          onChange={handleInput}
-          disabled={!isEditing}
-          required
-        />
-      </div>
+        <div className="admin-contact-update__field">
+          <label htmlFor="message">Message</label>
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Enter message"
+            autoComplete="off"
+            rows="5"
+            value={user.message}
+            onChange={handleInput}
+            disabled={!isEditing}
+            required
+          />
+        </div>
 
-      <div className="admin-contact-update__buttons">
-        <button
-          type="button"
-          onClick={() => setIsEditing(!isEditing)}
-          className="admin-contact-update__edit-btn"
-        >
-          {isEditing ? "Cancel" : "Edit"}
-        </button>
-
-        {isEditing && (
-          <button type="submit" className="admin-contact-update__submit-btn">
-            Update Now
+        <div className="admin-contact-update__buttons">
+          <button
+            type="button"
+            onClick={() => setIsEditing(!isEditing)}
+            className="admin-contact-update__edit-btn"
+          >
+            {isEditing ? "Cancel" : "Edit"}
           </button>
-        )}
-      </div>
-    </form>
-  </div>
 
+          {isEditing && (
+            <button type="submit" className="admin-contact-update__submit-btn">
+              Update Now
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };

@@ -11,10 +11,13 @@ export const AdminContacts = () => {
 
   const getAllContacts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/admin/contacts", {
-        method: "GET",
-        headers: { Authorization: authorization },
-      });
+      const response = await fetch(
+        "https://zammil-backend-production.up.railway.app/api/admin/contacts",
+        {
+          method: "GET",
+          headers: { Authorization: authorization },
+        }
+      );
       const data = await response.json();
       setContacts(data); // make sure your backend sends an array here
     } catch (error) {
@@ -25,7 +28,7 @@ export const AdminContacts = () => {
   const deleteContact = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/admin/contacts/delete/${id}`,
+        `https://zammil-backend-production.up.railway.app/api/admin/contacts/delete/${id}`,
         {
           method: "DELETE",
           headers: { Authorization: authorization },

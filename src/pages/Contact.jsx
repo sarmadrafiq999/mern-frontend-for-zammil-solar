@@ -33,7 +33,7 @@ export default function Contact() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:3000/api/auth/contact-us",
+        "https://zammil-backend-production.up.railway.app/api/auth/contact-us",
         {
           method: "POST",
           headers: {
