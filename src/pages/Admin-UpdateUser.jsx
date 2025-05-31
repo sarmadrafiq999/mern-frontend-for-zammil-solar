@@ -13,7 +13,7 @@ export const AdminUserUpdate = () => {
 
   const params = useParams();
   const navigate = useNavigate();
-  const { authorization } = useAuth();
+  const { token } = useAuth();
 
   // Fetch single user data
   const getSingleUserData = async () => {
@@ -23,7 +23,7 @@ export const AdminUserUpdate = () => {
         {
           method: "GET",
           headers: {
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -61,7 +61,7 @@ export const AdminUserUpdate = () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(user),
         }

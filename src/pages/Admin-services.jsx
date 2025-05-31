@@ -6,7 +6,7 @@ import "./AllServices.css";
 
 const AllServices = () => {
   const [services, setServices] = useState([]);
-  const { authorization } = useAuth();
+  const { token } = useAuth();
 
   // Fetch all services from the backend
   const fetchServices = async () => {
@@ -15,7 +15,7 @@ const AllServices = () => {
         "https://zammil-backend-production.up.railway.app/api/admin/getadminservices",
         {
           method: "GET",
-          headers: { Authorization: authorization },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -46,7 +46,7 @@ const AllServices = () => {
         `https://zammil-backend-production.up.railway.app/api/admin/adminservices/delete/${id}`,
         {
           method: "DELETE",
-          headers: { Authorization: authorization },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 

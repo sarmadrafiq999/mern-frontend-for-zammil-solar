@@ -9,7 +9,7 @@ export const AdminContacts = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
-  const { authorization } = useAuth();
+  const { token } = useAuth();
 
   const getAllContacts = async () => {
     setLoading(true);
@@ -18,7 +18,7 @@ export const AdminContacts = () => {
         "https://zammil-backend-production.up.railway.app/api/admin/contacts",
         {
           method: "GET",
-          headers: { Authorization: authorization },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const data = await response.json();
@@ -42,7 +42,7 @@ export const AdminContacts = () => {
         `https://zammil-backend-production.up.railway.app/api/admin/contacts/delete/${id}`,
         {
           method: "DELETE",
-          headers: { Authorization: authorization },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       if (response.ok) {
@@ -87,10 +87,7 @@ export const AdminContacts = () => {
                 <td>{contact.message}</td>
                 <td>
                   <Link to={`/admin/contacts/${contact._id}/edit`}>
-                    <FaEdit
-                      className="action-icon edit"
-                      title="Edit Contact"
-                    />
+                    <FaEdit className="action-icon edit" title="Edit Contact" />
                   </Link>
                   <button
                     onClick={() => deleteContact(contact._id)}

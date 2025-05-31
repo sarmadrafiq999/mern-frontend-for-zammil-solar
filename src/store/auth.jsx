@@ -7,32 +7,24 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [token, settoken] = useState(localStorage.getItem("token"));
 
-  //---------------------****--------
-  // Store token to localStorage and update state
-  //---------------------****--------
+  // ✅ Store token in localStorage and update state
   const storeTokenLS = (tokenServer) => {
     settoken(tokenServer);
     localStorage.setItem("token", tokenServer);
   };
 
-  //---------------------****--------
-  // Logout user: clear token and user data
-  //---------------------****--------
+  // ✅ Logout function: Clear all
   const logoutUser = () => {
     settoken("");
     setUser("");
     localStorage.removeItem("token");
   };
 
-  //---------------------****--------
-  // Check if logged in
-  //---------------------****--------
+  // ✅ Boolean check
   const isLoggedIn = !!token;
-  console.log("loggedin Token ", isLoggedIn);
+  console.log("loggedin Token:", isLoggedIn);
 
-  //---------------------****--------
-  // Fetch authenticated user data with current token
-  //---------------------****--------
+  // ✅ Fetch authenticated user using token
   const userAuthantication = async () => {
     if (!token) {
       setUser("");
@@ -44,6 +36,9 @@ export const AuthProvider = ({ children }) => {
       setisLoading(true);
 
       const authHeader = `Bearer ${token}`;
+
+      console.log("🔐 Sending token:", token);
+      console.log("🧾 Authorization header:", authHeader);
 
       const response = await fetch(
         "https://zammil-backend-production.up.railway.app/api/auth/user",
@@ -57,21 +52,22 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("User data:", data.user);
+        console.log("✅ User data:", data.user);
         setUser(data.user);
       } else {
-        console.log("Error fetching user Data");
+        const errorData = await response.json();
+        console.error("❌ Error fetching user (bad response):", errorData);
         setUser("");
       }
-      setisLoading(false);
     } catch (error) {
-      console.log("Error fetching user Data", error);
+      console.error("❌ Error fetching user (network/server):", error);
       setUser("");
+    } finally {
       setisLoading(false);
     }
   };
 
-  // Whenever token changes, fetch user data
+  // Re-run auth check when token changes
   useEffect(() => {
     userAuthantication();
   }, [token]);
@@ -84,6 +80,7 @@ export const AuthProvider = ({ children }) => {
         user,
         isLoggedIn,
         isLoading,
+        token,
         userAuthantication,
       }}
     >
@@ -92,11 +89,11 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use AuthContext
+// ✅ Hook to use auth
 export const useAuth = () => {
   const authContext = useContext(AuthContext);
   if (!authContext) {
-    throw new Error("Auth child is not used correctly");
+    throw new Error("useAuth must be used inside AuthProvider");
   }
   return authContext;
 };

@@ -12,7 +12,7 @@ const ProductForm = () => {
     img: "",
   });
   const [loading, setLoading] = useState(false);
-  const { authorization } = useAuth();
+  const { token } = useAuth();
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -32,7 +32,7 @@ const ProductForm = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         }

@@ -13,7 +13,7 @@ export const AdminContactUpdate = () => {
     message: "",
   });
 
-  const { authorization } = useAuth();
+  const { token } = useAuth();
   const { id } = useParams();
 
   const getSingleContactData = async () => {
@@ -23,7 +23,7 @@ export const AdminContactUpdate = () => {
         {
           method: "GET",
           headers: {
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -64,7 +64,7 @@ export const AdminContactUpdate = () => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(user),
         }

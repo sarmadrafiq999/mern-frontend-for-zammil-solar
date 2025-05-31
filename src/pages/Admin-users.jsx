@@ -14,7 +14,7 @@ import "./AdminUsers.css";
 
 export const AdminUsers = () => {
   const [users, setUsers] = useState([]);
-  const { authorization } = useAuth();
+  const { token } = useAuth();
 
   // Fetch all users
   const getAllUsers = async () => {
@@ -24,7 +24,7 @@ export const AdminUsers = () => {
         {
           method: "GET",
           headers: {
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -48,7 +48,7 @@ export const AdminUsers = () => {
         {
           method: "DELETE",
           headers: {
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
           },
         }
       );

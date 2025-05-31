@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 export const AdminServiceUpdate = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { authorization } = useAuth();
+  const { token } = useAuth();
 
   const [service, setService] = useState({
     title: "",
@@ -23,7 +23,7 @@ export const AdminServiceUpdate = () => {
         `https://zammil-backend-production.up.railway.app/api/admin/getadminservices/${id}`,
         {
           method: "GET",
-          headers: { Authorization: authorization },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -74,7 +74,7 @@ export const AdminServiceUpdate = () => {
         {
           method: "PATCH",
           headers: {
-            Authorization: authorization,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(service),
