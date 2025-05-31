@@ -11,7 +11,7 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
-  const { storeTokenLS } = useAuth();
+  const { storeTokenLS,userAuthantication } = useAuth();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -37,7 +37,7 @@ export default function Login() {
       );
 
       const data = await response.json();
-
+      // const { userAuthantication } = useAuth();
       if (response.ok) {
         storeTokenLS(data.token); // Store token and trigger user fetch via context's useEffect
 
@@ -45,6 +45,7 @@ export default function Login() {
           email: "",
           password: "",
         });
+        await userAuthantication();
 
         toast.success("Login successful");
         navigate("/");
@@ -53,7 +54,7 @@ export default function Login() {
       }
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("Login failed. Please check your connection.");
+      toast("Login failed", { type: "error" }); // 👈 This line shows the error notification
     }
   };
 
