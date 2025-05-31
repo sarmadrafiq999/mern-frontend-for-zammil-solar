@@ -53,7 +53,7 @@ export default function Login() {
         toast.error(data.extraDetails || data.message || "Invalid credentials");
       }
     } catch (error) {
-      toast.error("Login failed. Please check your connection.");
+      // toast.error("Login failed. Please check your connection.");
       console.error("Login error:", error);
     }
   };
