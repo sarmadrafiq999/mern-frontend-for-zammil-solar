@@ -1,74 +1,79 @@
-// Context api
 import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoading, setisLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState("");
+  const [token, settoken] = useState(localStorage.getItem("token"));
 
-  // Store token in localStorage
+  //---------------------****--------
+  // Store token to localStorage and update state
+  //---------------------****--------
   const storeTokenLS = (tokenServer) => {
-    setToken(tokenServer);
+    settoken(tokenServer);
     localStorage.setItem("token", tokenServer);
   };
 
-  // Logout Functionality
+  //---------------------****--------
+  // Logout user: clear token and user data
+  //---------------------****--------
   const logoutUser = () => {
-    setToken("");
-    setUser(null);
+    settoken("");
+    setUser("");
     localStorage.removeItem("token");
   };
 
-  // isLoggedIn
+  //---------------------****--------
+  // Check if logged in
+  //---------------------****--------
   const isLoggedIn = !!token;
-  console.log("Logged in:", isLoggedIn);
+  console.log("loggedin Token ", isLoggedIn);
 
-  // Get current user data using JWT
-  const userAuthentication = async () => {
+  //---------------------****--------
+  // Fetch authenticated user data with current token
+  //---------------------****--------
+  const userAuthantication = async () => {
+    if (!token) {
+      setUser("");
+      setisLoading(false);
+      return;
+    }
+
     try {
       setisLoading(true);
-      const currentToken = localStorage.getItem("token");
 
-      if (!currentToken) {
-        logoutUser();
-        return;
-      }
+      const authHeader = `Bearer ${token}`;
 
       const response = await fetch(
         "https://zammil-backend-production.up.railway.app/api/auth/user",
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${currentToken}`,
+            Authorization: authHeader,
           },
         }
       );
 
       if (response.ok) {
         const data = await response.json();
-        console.log("User fetched:", data.user);
+        console.log("User data:", data.user);
         setUser(data.user);
       } else {
-        if (response.status === 401 || response.status === 403) {
-          logoutUser();
-        }
-        console.log("Error fetching user data:", response.status);
+        console.log("Error fetching user Data");
+        setUser("");
       }
+      setisLoading(false);
     } catch (error) {
-      console.error("Authentication error:", error);
-      logoutUser();
-    } finally {
+      console.log("Error fetching user Data", error);
+      setUser("");
       setisLoading(false);
     }
   };
 
-  // Run authentication when token changes
+  // Whenever token changes, fetch user data
   useEffect(() => {
-    if (token) {
-      userAuthentication();
-    }
+    userAuthantication();
   }, [token]);
 
   return (
@@ -79,7 +84,7 @@ export const AuthProvider = ({ children }) => {
         user,
         isLoggedIn,
         isLoading,
-        userAuthentication,
+        userAuthantication,
       }}
     >
       {children}
@@ -87,11 +92,11 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook
+// Custom hook to use AuthContext
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error("Auth child is not used correctly");
   }
-  return context;
+  return authContext;
 };

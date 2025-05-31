@@ -11,7 +11,7 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
-  const { storeTokenLS, userAuthantication } = useAuth();
+  const { storeTokenLS } = useAuth();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -39,8 +39,7 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        storeTokenLS(data.token);
-        await userAuthantication();
+        storeTokenLS(data.token); // Store token and trigger user fetch via context's useEffect
 
         setUser({
           email: "",
@@ -53,8 +52,8 @@ export default function Login() {
         toast.error(data.extraDetails || data.message || "Invalid credentials");
       }
     } catch (error) {
-      // toast.error("Login failed. Please check your connection.");
       console.error("Login error:", error);
+      toast.error("Login failed. Please check your connection.");
     }
   };
 
